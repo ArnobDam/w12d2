@@ -14,6 +14,12 @@
 #  updated_at :datetime         not null
 #
 class Pokemon < ApplicationRecord
+  has_many :poke_moves
+  has_many :items, dependent: :destroy
+
+  has_many :moves,
+    through: :poke_moves,
+    source: :move
 
     TYPES = [
         'fire',
@@ -39,8 +45,8 @@ class Pokemon < ApplicationRecord
 
     validates :number, :name, :attack, :defense, :poke_type, :image_url, presence: true
     validates :captured, inclusion: [true, false]
-    validates :name, length: { in: 3..255}, uniquness: { message: "'%{value}' is already in use" }
-    validates :number, uniquness: { message: "'%{value}' is already in use" }, numericality: { greater_than: 0 }
+    validates :name, length: { in: 3..255}, uniqueness: { message: "'%{value}' is already in use" }
+    validates :number, uniqueness: { message: "'%{value}' is already in use" }, numericality: { greater_than: 0 }
     validates :attack, :defense, numericality: { in: 0..100 }
 
 end

@@ -8,6 +8,10 @@
 #  updated_at :datetime         not null
 #
 class Move < ApplicationRecord
+    has_many :poke_moves
+    has_many :pokemon, 
+        through: :poke_moves,
+        source: :pokemon
 
     validates :name, presence: true
 end

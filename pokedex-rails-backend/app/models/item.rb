@@ -13,5 +13,7 @@
 #
 class Item < ApplicationRecord
     validates :name, :price, :happiness, :image_url, :pokemon_id, presence: true
+
+    belongs_to :pokemon
     
 end
